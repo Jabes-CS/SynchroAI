@@ -1,1 +1,3 @@
 # SynchroAI
+
+### By: Jabes & Nickolas
