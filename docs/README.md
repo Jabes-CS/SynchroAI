@@ -2,7 +2,7 @@
 
 ### By: Jabes & Nickolas
 ```
-voluntariado-inteligente/
+SynchroAI/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py              # Entry point FastAPI
