@@ -40,3 +40,13 @@ def get_institution(institution_id: int, db: Session = Depends(get_db)):
     if not institution:
         raise HTTPException(status_code=404, detail="Instituição não encontrada.")
     return institution
+
+@router.delete("/{institution_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_institution(institution_id: int, db: Session = Depends(get_db)):
+    """Deleta uma instituição."""
+    institution = db.query(Institution).filter(Institution.id == institution_id).first()
+    if not institution:
+        raise HTTPException(status_code=404, detail="Instituição não encontrada.")
+    db.delete(institution)
+    db.commit()
+    return None
