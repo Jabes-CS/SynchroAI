@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  title: SynchroAI Tools API
+  description: Ferramentas expostas pelo backend SynchroAI para os agentes watsonx
+  version: 1.0.0
+servers:
+  - url: https://seu-backend.railway.app # substitua pela URL real
+
+paths:
+  /volunteers:
+    post:
+      operationId: create_volunteer_profile
+      summary: Cria ou atualiza o perfil de um voluntário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                city:
+                  type: string
+                skills:
+                  type: array
+                  items:
+                    type: string
+                availability:
+                  type: array
+                  items:
+                    type: string
+                has_experience:
+                  type: boolean
+                motivation:
+                  type: string
+      responses:
+        "201":
+          description: Perfil criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  volunteer_id:
+                    type: string
+                  message:
+                    type: string
+
+  /volunteers/{volunteer_id}:
+    get:
+      operationId: get_volunteer_profile
+      summary: Busca perfil completo de um voluntário
+      parameters:
+        - name: volunteer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Perfil encontrado
+
+  /needs:
+    get:
+      operationId: list_active_needs
+      summary: Lista necessidades ativas das instituições
+      parameters:
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: skill
+          in: query
+          schema:
+            type: string
+        - name: priority
+          in: query
+          schema:
+            type: string
+            enum: [LOW, MEDIUM, HIGH, CRITICAL]
+      responses:
+        "200":
+          description: Lista de necessidades
+
+  /matches:
+    post:
+      operationId: create_match
+      summary: Registra match entre voluntário e necessidade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                volunteer_id:
+                  type: string
+                need_id:
+                  type: string
+                compatibility_score:
+                  type: number
+      responses:
+        "201":
+          description: Match criado
+
+  /volunteers/{volunteer_id}/score:
+    get:
+      operationId: get_volunteer_score
+      summary: Busca pontuação atual do voluntário
+      parameters:
+        - name: volunteer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Pontuação e conquistas
+
+    patch:
+      operationId: update_volunteer_score
+      summary: Atualiza pontuação do voluntário
+      parameters:
+        - name: volunteer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                points_to_add:
+                  type: integer
+                reason:
+                  type: string
+      responses:
+        "200":
+          description: Pontuação atualizada
+
+  /volunteers/{volunteer_id}/wellbeing:
+    post:
+      operationId: log_wellbeing_checkin
+      summary: Registra check-in de bem-estar
+      parameters:
+        - name: volunteer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                level:
+                  type: string
+                  enum: [GREEN, YELLOW, RED]
+                notes:
+                  type: string
+      responses:
+        "201":
+          description: Check-in registrado
+
+  /notifications/institution:
+    post:
+      operationId: notify_institution
+      summary: Notifica instituição sobre novo match
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                institution_id:
+                  type: string
+                match_id:
+                  type: string
+                volunteer_name:
+                  type: string
+      responses:
+        "200":
+          description: Notificação enviada
