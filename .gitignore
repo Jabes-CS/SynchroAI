@@ -1,0 +1,77 @@
+# ============================================
+# CREDENCIAIS E SEGREDOS (CRÍTICO!)
+# ============================================
+.env
+*.env
+.env.local
+.env.*.local
+!.env.example
+*.key
+*.pem
+credentials.json
+
+# ============================================
+# PYTHON / BACKEND
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# ============================================
+# NODE / REACT / FRONTEND
+# ============================================
+node_modules/
+dist/
+build/
+.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# BANCO DE DADOS LOCAL
+# ============================================
+*.sqlite
+*.sqlite3
+*.db
+
+# ============================================
+# IDE / EDITORES
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================================
+# SISTEMA OPERACIONAL
+# ============================================
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ============================================
+# ARQUIVOS TEMPORÁRIOS
+# ============================================
+*.tmp
+*.bak
+*.cache
