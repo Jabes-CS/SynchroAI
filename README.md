@@ -136,7 +136,7 @@ A aplicação web estará disponível em `http://localhost:5173`.
 | Integrante | Papel | Contato |
 |------------|-------|---------|
 | **Jabes Candido** | Desenvolvimento Full-Stack e Arquitetura | [GitHub](https://github.com/Jabes-CS) |
-| **Nickolas Bragato** | Desenvolvimento e Orquestração IA | — |
+| **Nickolas Bragato** | Desenvolvimento e Orquestração IA | — | [GitHub](https://github.com/Nickolas-Bragato) |
 
 **Orientação:** UNASP — Centro Universitário Adventista de São Paulo
 **Parceiro:** IBM
