@@ -17,7 +17,7 @@ Como rodar:
 
 import pytest
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # ============================================
 # CONFIGURAÇÃO
@@ -247,7 +247,7 @@ def test_11_create_need():
         pytest.skip("Nenhuma instituição criada")
     
     institution_id = created_institutions[0]
-    tomorrow = datetime.utcnow() + timedelta(days=1)
+    tomorrow = datetime.now(timezone.utc) + timedelta(days=1)
     next_day = tomorrow + timedelta(hours=4)
     
     data = {
@@ -283,7 +283,7 @@ def test_12_create_multiple_needs():
         pytest.skip("Nenhuma instituição criada")
     
     institution_id = created_institutions[1] if len(created_institutions) > 1 else created_institutions[0]
-    tomorrow = datetime.utcnow() + timedelta(days=2)
+    tomorrow = datetime.now(timezone.utc) + timedelta(days=2)
     next_day = tomorrow + timedelta(hours=6)
     
     data = {

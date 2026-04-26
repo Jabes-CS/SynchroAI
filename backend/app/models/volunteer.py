@@ -8,8 +8,10 @@ Dois tipos possíveis:
 """
 
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Enum, JSON
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
 import enum
+
 
 from app.database import Base
 
@@ -50,7 +52,7 @@ class Volunteer(Base):
     open_to_rotation = Column(Boolean, default=True)
 
     # ========== Controle ==========
-    is_active = Column(Boolean, default=True)
+    is_active: Mapped[bool] = mapped_column(default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 

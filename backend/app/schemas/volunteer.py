@@ -58,7 +58,9 @@ class VolunteerRead(VolunteerBase):
     """Dados retornados ao consultar um voluntário."""
     id: int
     points: int
-    carfo_profile: Optional[Dict[str, Any]] = None 
+    carfo_profile: Optional[Dict[str, Any]] = None
+    latitude: Optional[str] = None
+    longitude: Optional[str] = None
     is_active: bool
     created_at: datetime
     updated_at: Optional[datetime] = None
