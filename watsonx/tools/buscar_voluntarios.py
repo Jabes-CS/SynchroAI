@@ -11,7 +11,7 @@ from ibm_watsonx_orchestrate.agent_builder.tools import tool
 
 
 # URL base da nossa API FastAPI
-API_BASE_URL = "http://localhost:8000"
+API_BASE_URL = "https://synchroai-api.onrender.com"
 
 
 @tool(
