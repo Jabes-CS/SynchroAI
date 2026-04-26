@@ -9,7 +9,7 @@ import requests
 from ibm_watsonx_orchestrate.agent_builder.tools import tool
 
 
-API_BASE_URL = "http://localhost:8000"
+API_BASE_URL = "https://synchroai-api.onrender.com"
 
 
 @tool(
