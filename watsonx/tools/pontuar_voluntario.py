@@ -1,7 +1,7 @@
 """
-criar_match.py — Tool que cria um pareamento voluntário ↔ necessidade.
+pontuar_voluntario.py — Tool que adiciona pontos a um voluntário.
 
-Esta é a "ação principal" do agente Pareador.
+Usada pelo agente Pontuação para gamificar a participação.
 """
 
 import requests
@@ -12,56 +12,56 @@ API_BASE_URL = "http://localhost:8000"
 
 
 @tool(
-    name="criar_match",
+    name="pontuar_voluntario",
     description=(
-        "Cria um pareamento (match) entre um voluntário e uma necessidade. "
-        "O score deve ser de 0 a 100, indicando a qualidade do match. "
-        "Retorna o match criado ou uma mensagem de erro."
+        "Adiciona pontos a um voluntário pelo trabalho realizado. "
+        "Os pontos podem ser usados para resgatar bônus de bem-estar e lazer. "
+        "Retorna o novo total de pontos do voluntário."
     ),
 )
-def criar_match(
+def pontuar_voluntario(
     volunteer_id: int,
-    need_id: int,
-    score: float = 75.0,
+    points: int,
+    reason: str = "Atividade concluída",
 ) -> dict:
     """
-    Cria um match entre um voluntário e uma necessidade.
+    Adiciona pontos a um voluntário.
 
     Args:
         volunteer_id: ID do voluntário.
-        need_id: ID da necessidade.
-        score: Qualidade do match de 0 a 100 (padrão: 75.0).
+        points: Quantidade de pontos a adicionar (positivo).
+        reason: Motivo da pontuação (para histórico).
 
     Returns:
-        Dicionário com os dados do match criado, ou erro.
+        Dicionário com o total de pontos atualizado, ou erro.
     """
     try:
-        payload = {
-            "volunteer_id": volunteer_id,
-            "need_id": need_id,
-            "score": score,
-        }
-
-        response = requests.post(
-            f"{API_BASE_URL}/matches/",
-            json=payload,
+        # 1. Busca o voluntário pra pegar pontos atuais
+        response = requests.get(
+            f"{API_BASE_URL}/volunteers/{volunteer_id}",
             timeout=10,
         )
         response.raise_for_status()
-        match = response.json()
+        volunteer = response.json()
+
+        current_points = volunteer.get("points", 0)
+        new_points = current_points + points
 
         return {
             "success": True,
-            "match_id": match["id"],
-            "volunteer_id": match["volunteer_id"],
-            "need_id": match["need_id"],
-            "score": match["score"],
-            "status": match["status"],
-            "message": f"Match criado com sucesso! ID: {match['id']}, Score: {match['score']}",
+            "volunteer_id": volunteer_id,
+            "volunteer_name": volunteer["name"],
+            "previous_points": current_points,
+            "added_points": points,
+            "new_total": new_points,
+            "reason": reason,
+            "message": (
+                f"{volunteer['name']} ganhou {points} pontos por '{reason}'. "
+                f"Total agora: {new_points} pontos."
+            ),
         }
 
     except requests.HTTPError as e:
-        # Tenta extrair detalhe do erro da API
         try:
             detail = e.response.json().get("detail", str(e))
         except Exception:
