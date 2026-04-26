@@ -41,3 +41,13 @@ def get_need(need_id: int, db: Session = Depends(get_db)):
     if not need:
         raise HTTPException(status_code=404, detail="Necessidade não encontrada.")
     return need
+
+@router.delete("/{need_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_need(need_id: int, db: Session = Depends(get_db)):
+    """Deleta uma necessidade."""
+    need = db.query(Need).filter(Need.id == need_id).first()
+    if not need:
+        raise HTTPException(status_code=404, detail="Necessidade não encontrada.")
+    db.delete(need)
+    db.commit()
+    return None

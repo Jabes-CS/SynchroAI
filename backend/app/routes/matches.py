@@ -42,3 +42,13 @@ def get_match(match_id: int, db: Session = Depends(get_db)):
     if not match:
         raise HTTPException(status_code=404, detail="Match não encontrado.")
     return match
+
+@router.delete("/{match_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_match(match_id: int, db: Session = Depends(get_db)):
+    """Deleta um match."""
+    match = db.query(Match).filter(Match.id == match_id).first()
+    if not match:
+        raise HTTPException(status_code=404, detail="Match não encontrado.")
+    db.delete(match)
+    db.commit()
+    return None

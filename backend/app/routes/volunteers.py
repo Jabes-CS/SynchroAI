@@ -85,7 +85,8 @@ def deactivate_volunteer(volunteer_id: int, db: Session = Depends(get_db)):
     volunteer = db.query(Volunteer).filter(Volunteer.id == volunteer_id).first()
     if not volunteer:
         raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
-
-    volunteer.is_active = False
+    
+    db.delete(volunteer) ## descomentar para testes
+    ##volunteer.is_active = False ##comentar para testes
     db.commit()
     return None
