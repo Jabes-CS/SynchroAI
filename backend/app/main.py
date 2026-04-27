@@ -1,9 +1,8 @@
 """
 main.py — Ponto de entrada da API SynchroAI.
-
-Inicializa o FastAPI, configura CORS, registra as rotas.
 """
 
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -14,53 +13,52 @@ from app.routes import (
     matches_router,
 )
 
-# ============================================
-# INSTÂNCIA FASTAPI
-# ============================================
 app = FastAPI(
     title="SynchroAI API",
     description="Orquestrando voluntariado inteligente para situações de crise.",
     version="0.1.0",
 )
 
-# ============================================
-# CORS (para o frontend React conseguir acessar)
-# ============================================
+# CORS — em produção, libera todos os origins (vamos restringir depois)
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+
+if ENVIRONMENT == "production":
+    # Em produção, permite todas as origens (pra ngrok, vercel, IBM, etc)
+    allow_origins = ["*"]
+else:
+    # Em dev, só localhost
+    allow_origins = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+    ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # Frontend Vite em desenvolvimento
-        "http://localhost:3000",  # Caso use outra porta
-    ],
-    allow_credentials=True,
+    allow_origins=allow_origins,
+    allow_credentials=False,  # False quando allow_origins=["*"]
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ============================================
-# ROTAS
-# ============================================
+# Rotas
 app.include_router(volunteers_router)
 app.include_router(institutions_router)
 app.include_router(needs_router)
 app.include_router(matches_router)
 
 
-# ============================================
-# HEALTH CHECK
-# ============================================
 @app.get("/", tags=["Health"])
 def root():
-    """Endpoint de sanidade — confirma que a API está no ar."""
     return {
         "status": "online",
         "project": "SynchroAI",
         "version": "0.1.0",
+        "environment": ENVIRONMENT,
         "docs": "/docs",
     }
 
 
 @app.get("/health", tags=["Health"])
 def health_check():
-    """Verificação de saúde da API."""
     return {"status": "healthy"}
