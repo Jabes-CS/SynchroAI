@@ -1,12 +1,6 @@
 import axios from 'axios'
 
-<<<<<<< HEAD
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.DEV
-    ? 'http://localhost:8000'
-    : 'https://synchroai-api.onrender.com')
-=======
+
 // Em produção, lê da variável VITE_API_URL.
 // Em desenvolvimento, usa localhost.
 
@@ -24,7 +18,7 @@ export async function getProfile() {
     throw error;
   }
 }
->>>>>>> 780ffde (Configuração frontend)
+
 
 const api = axios.create({
   baseURL: API_URL,
