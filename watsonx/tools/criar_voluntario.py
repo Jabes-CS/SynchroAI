@@ -22,8 +22,10 @@ API_BASE_URL = "https://synchroai-api.onrender.com"
     ),
 )
 def criar_voluntario(
+    cpf: str,
     name: str,
     email: str,
+    password: str = "",
     type: str = "freelancer",
     skills: str = "",
     city: str = "",
@@ -56,8 +58,10 @@ def criar_voluntario(
     availability_dict = {"description": availability} if availability else {}
 
     payload = {
+        "cpf": cpf,
         "name": name,
         "email": email,
+        "password": password,
         "type": type,
         "skills": skills_list,
         "availability": availability_dict,

@@ -37,10 +37,11 @@ def registrar_interesse_voluntario(
         payload = {
             "volunteer_id": volunteer_id,
             "need_id": need_id,
+            "type": "voluntario_para_necessidade",
         }
 
         response = requests.post(
-            f"{API_BASE_URL}/volunteers/register-interest",
+            f"{API_BASE_URL}/interesses/",
             json=payload,
             timeout=60,
         )

@@ -15,6 +15,7 @@ from app.routes import (
     alertas_router,
     feedbacks_router,
     interesses_router,
+    rewards_router,
     chat_router,
 )
 from app.services.orchestrate import get_orchestrate_token, ORCHESTRATE_BASE_URL
@@ -59,6 +60,7 @@ app.include_router(matches_router)
 app.include_router(alertas_router)
 app.include_router(feedbacks_router)
 app.include_router(interesses_router)
+app.include_router(rewards_router)
 app.include_router(chat_router)
 
 

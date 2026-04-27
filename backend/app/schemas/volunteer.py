@@ -32,7 +32,12 @@ class VolunteerBase(BaseModel):
 # ============================================
 class VolunteerCreate(VolunteerBase):
     """Dados necessários para CRIAR um voluntário."""
-    pass  # Herda todos os campos de VolunteerBase
+    cpf: str = Field(..., min_length=11, max_length=14, description="CPF do voluntário")
+    password: Optional[str] = Field(
+        None,
+        min_length=6,
+        description="Senha do voluntário para autenticação futura",
+    )
 
 
 # ============================================

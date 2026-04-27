@@ -20,8 +20,10 @@ API_BASE_URL = "https://synchroai-api.onrender.com"
     ),
 )
 def criar_instituicao(
+    cnpj: str,
     name: str,
     email: str,
+    password: str = "",
     type: str = "ngo",
     city: str = "",
     state: str = "",
@@ -44,8 +46,10 @@ def criar_instituicao(
         Dicionário com os dados da instituição criada, ou erro.
     """
     payload = {
+        "cnpj": cnpj,
         "name": name,
         "email": email,
+        "password": password,
         "type": type,
     }
 

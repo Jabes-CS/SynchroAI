@@ -35,12 +35,13 @@ def registrar_interesse_instituicao(
     """
     try:
         payload = {
-            "need_id": need_id,
             "volunteer_id": volunteer_id,
+            "need_id": need_id,
+            "type": "instituicao_para_voluntario",
         }
 
         response = requests.post(
-            f"{API_BASE_URL}/institutions/register-interest",
+            f"{API_BASE_URL}/interesses/",
             json=payload,
             timeout=60,
         )

@@ -20,7 +20,12 @@ class InstitutionBase(BaseModel):
 
 
 class InstitutionCreate(InstitutionBase):
-    pass
+    cnpj: str = Field(..., min_length=14, max_length=18, description="CNPJ da instituição")
+    password: Optional[str] = Field(
+        None,
+        min_length=6,
+        description="Senha da instituição para autenticação futura",
+    )
 
 
 class InstitutionUpdate(BaseModel):
