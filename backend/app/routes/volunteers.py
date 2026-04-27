@@ -90,3 +90,4 @@ def deactivate_volunteer(volunteer_id: int, db: Session = Depends(get_db)):
     ##volunteer.is_active = False ##comentar para testes
     db.commit()
     return None
+

@@ -3,8 +3,9 @@ main.py — Ponto de entrada da API SynchroAI.
 """
 
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+import httpx
 
 from app.routes import (
     volunteers_router,
@@ -16,12 +17,17 @@ from app.routes import (
     interesses_router,
     chat_router,
 )
+from app.services.orchestrate import get_orchestrate_token, ORCHESTRATE_BASE_URL
 
 app = FastAPI(
     title="SynchroAI API",
     description="Orquestrando voluntariado inteligente para situações de crise.",
     version="0.1.0",
 )
+
+
+
+WATSONX_API_KEY = os.getenv("WATSONX_API_KEY") or os.getenv("WO_API_KEY")
 
 # CORS — em produção, libera todos os origins (vamos restringir depois)
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
@@ -55,6 +61,21 @@ app.include_router(feedbacks_router)
 app.include_router(interesses_router)
 app.include_router(chat_router)
 
+
+
+
+@app.get("/api/profile")
+async def get_profile():
+    token = await get_orchestrate_token()
+    url = f"{ORCHESTRATE_BASE_URL}/mfe_home_archer/api/v1/profiles/me"
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(
+            url,
+            headers={"Authorization": f"Bearer {token}"},
+        )
+    if resp.status_code != 200:
+        raise HTTPException(status_code=resp.status_code, detail=resp.text)
+    return resp.json()
 
 @app.get("/", tags=["Health"])
 def root():
