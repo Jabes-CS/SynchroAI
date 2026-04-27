@@ -17,6 +17,7 @@ from app.routes import (
     interesses_router,
     chat_router,
 )
+from app.services.orchestrate import get_orchestrate_token, ORCHESTRATE_BASE_URL
 
 app = FastAPI(
     title="SynchroAI API",
@@ -26,7 +27,7 @@ app = FastAPI(
 
 
 
-WATSONX_API_KEY = os.getenv("WATSONX_API_KEY")
+WATSONX_API_KEY = os.getenv("WATSONX_API_KEY") or os.getenv("WO_API_KEY")
 
 # CORS — em produção, libera todos os origins (vamos restringir depois)
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
@@ -65,11 +66,12 @@ app.include_router(chat_router)
 
 @app.get("/api/profile")
 async def get_profile():
-    headers = {"Authorization": f"Bearer {WATSONX_API_KEY}"}
+    token = await get_orchestrate_token()
+    url = f"{ORCHESTRATE_BASE_URL}/mfe_home_archer/api/v1/profiles/me"
     async with httpx.AsyncClient() as client:
         resp = await client.get(
-            "https://dl.watson-orchestrate.ibm.com/mfe_home_archer/api/v1/profiles/me",
-            headers=headers
+            url,
+            headers={"Authorization": f"Bearer {token}"},
         )
     if resp.status_code != 200:
         raise HTTPException(status_code=resp.status_code, detail=resp.text)
