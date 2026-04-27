@@ -1,0 +1,5 @@
+ibm-watsonx-orchestrate
+pytest==7.4.4
+pytest-asyncio==0.23.2
+httpx>=0.28.1,<1.0.0
+requests>=2.32.4,<3.0.0
