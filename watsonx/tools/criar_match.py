@@ -45,7 +45,7 @@ def criar_match(
         response = requests.post(
             f"{API_BASE_URL}/matches/",
             json=payload,
-            timeout=10,
+            timeout=60,
         )
         response.raise_for_status()
         match = response.json()

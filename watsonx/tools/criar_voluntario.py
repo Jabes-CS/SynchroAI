@@ -75,7 +75,7 @@ def criar_voluntario(
         response = requests.post(
             f"{API_BASE_URL}/volunteers/",
             json=payload,
-            timeout=10,
+            timeout=60,
         )
         response.raise_for_status()
         volunteer = response.json()

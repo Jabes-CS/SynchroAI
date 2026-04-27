@@ -39,7 +39,7 @@ def pontuar_voluntario(
         # 1. Busca o voluntário pra pegar pontos atuais
         response = requests.get(
             f"{API_BASE_URL}/volunteers/{volunteer_id}",
-            timeout=10,
+            timeout=60,
         )
         response.raise_for_status()
         volunteer = response.json()

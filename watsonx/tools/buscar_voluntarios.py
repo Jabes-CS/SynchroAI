@@ -41,7 +41,7 @@ def buscar_voluntarios(
     """
     try:
         # Faz a chamada à API FastAPI
-        response = requests.get(f"{API_BASE_URL}/volunteers/", timeout=10)
+        response = requests.get(f"{API_BASE_URL}/volunteers/", timeout=60)
         response.raise_for_status()
         all_volunteers = response.json()
 

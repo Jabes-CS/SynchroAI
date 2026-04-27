@@ -38,7 +38,7 @@ def listar_necessidades(
         Lista de necessidades que correspondem aos filtros.
     """
     try:
-        response = requests.get(f"{API_BASE_URL}/needs/", timeout=10)
+        response = requests.get(f"{API_BASE_URL}/needs/", timeout=60)
         response.raise_for_status()
         all_needs = response.json()
 
