@@ -2,13 +2,12 @@ import axios from 'axios'
 
 
 // Em produção, lê da variável VITE_API_URL.
-// Em desenvolvimento, usa localhost.
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://synchroai-api.onrender.com';
 
 export async function getProfile() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/profile`);
+    const response = await fetch(`${API_URL}/api/profile`);
     if (!response.ok) {
       throw new Error(`Erro ${response.status}: ${await response.text()}`);
     }
