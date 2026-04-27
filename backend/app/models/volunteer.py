@@ -27,11 +27,9 @@ class Volunteer(Base):
 
     # ========== Identificação ==========
     id = Column(Integer, primary_key=True, index=True)
-    cpf = Column(String(14), unique=True, nullable=False, index=True)  # Formato: "12345678901" ou "123.456.789-01"
     name = Column(String(200), nullable=False)
     email = Column(String(200), unique=True, nullable=False, index=True)
     phone = Column(String(20), nullable=True)
-    password_hash = Column(String(256), nullable=False)  # Hash da senha para autenticação
 
     # ========== Tipo e perfil ==========
     type = Column(

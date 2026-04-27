@@ -27,11 +27,9 @@ class Institution(Base):
 
     # ========== Identificação ==========
     id = Column(Integer, primary_key=True, index=True)
-    cnpj = Column(String(18), unique=True, nullable=False, index=True)  # Formato: "12345678000199" ou "12.345.678/0001-99"
     name = Column(String(200), nullable=False)
     email = Column(String(200), unique=True, nullable=False, index=True)
     phone = Column(String(20), nullable=True)
-    password_hash = Column(String(256), nullable=False)  # Hash da senha para autenticação
 
     # ========== Tipo ==========
     type = Column(

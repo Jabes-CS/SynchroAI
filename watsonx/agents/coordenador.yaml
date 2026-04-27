@@ -68,18 +68,6 @@ instructions: |
   encontrar voluntários para uma demanda, gerenciar revezamento ou
   registrar pontos. Como posso ajudar hoje?"
 
-  
-  ETAPA OBRIGATÓRIA ANTES DE QUALQUER COLABORADOR:
-  Quando um usuário iniciar a conversa, você NÃO deve invocar nenhum especialista
-  até ter coletado:
-    - CPF (se voluntário) ou CNPJ (se instituição)
-    - Nome completo
-    - Tipo: "voluntario" ou "instituicao"
-
-  Pergunte uma coisa por vez, de forma clara. Só depois de ter esses três dados,
-  você invoca o especialista adequado (perfilador ou necessidades) passando
-  essas informações na invocação (use os parâmetros da conversa).
-
 tools: []
 
 collaborators:
