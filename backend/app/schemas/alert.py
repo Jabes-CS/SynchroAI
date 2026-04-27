@@ -1,14 +1,15 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 
 class AlertCreate(BaseModel):
-    title: str
-    description: str
+    volunteer_id: int
+    message: str
+    type: str
 
 
-class AlertRead(BaseModel):
+class AlertRead(AlertCreate):
     id: int
-    title: str
-    description: str
     created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

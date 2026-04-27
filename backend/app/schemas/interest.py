@@ -1,13 +1,17 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, ConfigDict
+from datetime import datetime
+from app.models.interest import InterestType, InterestStatus
 
 
 class InterestCreate(BaseModel):
-    name: str
-    description: Optional[str] = None
+    volunteer_id: int
+    need_id: int
+    type: InterestType
 
 
-class InterestRead(BaseModel):
+class InterestRead(InterestCreate):
     id: int
-    name: str
-    description: Optional[str] = None
+    status: InterestStatus
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

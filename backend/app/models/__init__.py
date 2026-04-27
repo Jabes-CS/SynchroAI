@@ -12,6 +12,9 @@ from app.models.need import Need, NeedStatus, UrgencyLevel
 from app.models.match import Match, MatchStatus
 from app.models.task_history import TaskHistory
 from app.models.reward import Reward, RewardType
+from app.models.alert import Alert, AlertType
+from app.models.feedback import Feedback
+from app.models.interest import Interest, InterestType, InterestStatus
 
 # Exporta tudo — facilita imports em outros arquivos
 __all__ = [
@@ -27,4 +30,10 @@ __all__ = [
     "TaskHistory",
     "Reward",
     "RewardType",
+    "Alert",
+    "AlertType",
+    "Feedback",
+    "Interest",
+    "InterestType",
+    "InterestStatus",
 ]

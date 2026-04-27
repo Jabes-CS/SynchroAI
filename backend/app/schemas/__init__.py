@@ -26,10 +26,16 @@ from app.schemas.match import (
     MatchUpdate,
     MatchRead,
 )
+from app.schemas.alert import AlertCreate, AlertRead
+from app.schemas.feedback import FeedbackCreate, FeedbackRead
+from app.schemas.interest import InterestCreate, InterestRead
 
 __all__ = [
     "VolunteerBase", "VolunteerCreate", "VolunteerUpdate", "VolunteerRead",
     "InstitutionBase", "InstitutionCreate", "InstitutionUpdate", "InstitutionRead",
     "NeedBase", "NeedCreate", "NeedUpdate", "NeedRead",
     "MatchBase", "MatchCreate", "MatchUpdate", "MatchRead",
+    "AlertCreate", "AlertRead",
+    "FeedbackCreate", "FeedbackRead",
+    "InterestCreate", "InterestRead",
 ]

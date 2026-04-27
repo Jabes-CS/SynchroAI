@@ -1,12 +1,16 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
+
 class FeedbackCreate(BaseModel):
-    content: str
+    volunteer_id: int
+    need_id: int
+    text: str
     rating: int
 
-class FeedbackRead(BaseModel):
+
+class FeedbackRead(FeedbackCreate):
     id: int
-    content: str
-    rating: int
     created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
