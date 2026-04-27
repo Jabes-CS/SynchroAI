@@ -9,6 +9,7 @@ from app.routes.matches import router as matches_router
 from app.routes.alertas import router as alertas_router
 from app.routes.feedbacks import router as feedbacks_router
 from app.routes.interesses import router as interesses_router
+from app.routes.chat import router as chat_router
 
 __all__ = [
     "volunteers_router",
@@ -18,4 +19,5 @@ __all__ = [
     "alertas_router",
     "feedbacks_router",
     "interesses_router",
+    "chat_router",
 ]

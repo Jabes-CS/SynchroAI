@@ -5,6 +5,7 @@ from app.services.orchestrate import (
     send_message_to_agent,
     create_session,
     delete_session,
+    get_orchestrate_token,
 )
 
 router = APIRouter(prefix="/chat", tags=["chat"])
@@ -22,6 +23,20 @@ class ChatResponse(BaseModel):
     agent_used: Optional[str] = None
 
 
+class TokenResponse(BaseModel):
+    token: str
+
+
+@router.get("/token", response_model=TokenResponse)
+async def get_chat_token():
+    """Devolve um JWT válido pro widget do WxO Chat (handler authTokenNeeded)."""
+    try:
+        token = await get_orchestrate_token()
+        return TokenResponse(token=token)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.post("/", response_model=ChatResponse)
 async def chat(body: ChatRequest):
     try:
@@ -33,7 +48,6 @@ async def chat(body: ChatRequest):
             volunteer_id=body.volunteer_id,
         )
 
-        # Extrai texto da resposta do Orchestrate
         response_text = (
             result.get("output", {})
             .get("generic", [{}])[0]
