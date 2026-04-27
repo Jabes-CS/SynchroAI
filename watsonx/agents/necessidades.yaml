@@ -107,7 +107,7 @@ instructions: |
   reconfortante.
 
 tools:
-  - buscar_instituicoes
+  - buscar_instituicao
   - criar_instituicao
   - criar_necessidade
 
